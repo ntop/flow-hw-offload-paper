@@ -6,10 +6,96 @@ The PF_RING and nProbe Cento packages used can be downloaded from https://packag
 All the tests have been performed with software versions of May 20th, 2024.
 
 ### Testbed
-nProbe Cento has been deployed on a Supermicro Super Server/X13SEI-F based on an Intel Xeon Gold 6526Y. 
-The traffic generator was running on a Supermicro Super Server/X11SCA-Fbased on an Intel Xeon(R) E-2136 connected with a DAC (Direct Attached Cable).
+nProbe Cento has been deployed on a Supermicro Super Server/X13SEI-F based on an Intel Xeon Gold 6526Y with a Napatech NT200A02 adapter.
+The traffic generator was running on a Supermicro Super Server/X11SCA-Fbased on a 6 cores Intel Xeon(R) E-2136 with a Napatech NT100E3 adapter connected with a DAC (Direct Attached Cable) to the server running nProbe Cento.
 
 ### Traffic Generation
+Traffic was generated with 12 pfsend instances, to take advantage to all physical and logical cores on the traffic generator, with different command line options to control the traffic at various rates. The maximum this machine was able to generate was 89 Mpps @ 60 Gbps (60-byte packets), or 10 Mpps @ 80 Gbps  (970-byte packets).
+
+The below command lines have been used. Please note they depend on the CPU, memory and NIC characteristics of the machine running the tool.
+
+1K flows 100 new-fps 10Mpps 80Gbps
+
+```
+for i in $(seq 1 12);
+do
+ pfsend -i nt:0 -b 1000 -U 8500 -K 1 -l 970 -O &
+done
+```
+
+10K flows 1K new-fps 10Mpps 80Gbps
+
+```
+for i in $(seq 1 12);
+do
+ pfsend -i nt:0 -b 10000 -U 850 -K 1 -l 970 -O &
+done
+```
+
+100K flows 10K new-fps 10Mpps 80Gbps
+
+```
+for i in $(seq 1 12);
+do
+ pfsend -i nt:0 -b 100000 -U 85 -K 1 -l 970 -O &
+done
+```
+
+1M flows 100K new-fps 10Mpps 80Gbps
+
+```
+for i in $(seq 1 12);
+do
+ pfsend -i nt:0 -b 1000000 -U 9 -K 1 -l 970 -O &
+done
+```
+
+10M flows 1M new-fps 10Mpps 80Gbps
+
+```
+for i in $(seq 1 12);
+do
+ pfsend -i nt:0 -b 10000000 -U 1 -K 10 -l 970 -O &
+done
+```
+
+1K flows 100 new-fps 89Mpps 60Gbps
+
+```
+for i in $(seq 1 12);
+do
+ pfsend -i nt:0 -b 1000 -U 70000 -K 1 -l 60 -O &
+done
+```
+
+10K flows 1K new-fps 89Mpps 60Gbps
+
+```
+for i in $(seq 1 12);
+do
+ pfsend -i nt:0 -b 10000 -U 7000 -K 1 -l 60 -O &
+done
+```
+
+100K flows 10K new-fps 89Mpps 60Gbps
+
+```
+for i in $(seq 1 12);
+do
+ pfsend -i nt:0 -b 100000 -U 700 -K 1 -l 60 -O &
+done
+```
+
+1M flows 100K new-fps 89Mpps 60Gbps
+
+```
+for i in $(seq 1 12);
+do
+ pfsend -i nt:0 -b 1000000 -U 70 -K 1 -l 60 -O &
+done
+```
+
+10M flows 1M new-fps 89Mpps 60Gbps
 
 ```
 for i in $(seq 1 12);
