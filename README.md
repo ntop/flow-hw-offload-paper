@@ -211,7 +211,46 @@ Assign[TxPort=DL_PORT] = Port==UL_PORT
 Assign[TxPort=UL_PORT] = Port==DL_PORT
 ```
 
-and cento has been started as follows
+The command to load the ntpl script is the below.
+
 ```
-cento -i nt:stream[0-15] --dpi-level 2 -v 4 -g 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 --exporting-cores 31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31 --max-hash-size 40000000
+/opt/napatech3/bin/ntpl -f script.ntpl
+```
+
+Cento has been started as follows.
+
+Passive capture (ndpi enabled)
+```
+sudo /opt/napatech3/bin/ntpl -f streams.ntpl
+sudo cento -i nt:stream[0-15] --dpi-level 2 -v 4 -g 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 --exporting-cores 31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31  --max-hash-size 40000000
+```
+
+Passive capture with offload (ndpi enabled)
+```
+sudo /opt/napatech3/bin/ntpl -f flow-offload-passive.ntpl
+sudo cento -i nt:stream[0-15] --dpi-level 2 -v 4 --flow-offload -g 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 --exporting-cores 31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31 --max-hash-size 40000000
+```
+
+Inline (ndpi enabled)
+```
+sudo /opt/napatech3/bin/ntpl -f streams.ntpl
+sudo cento-bridge -i nt:stream[0-15],nt:0 --dpi-level 2 --bridge-conf rules.conf -v 4 -g 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 --exporting-cores 31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31 --max-hash-size 40000000
+```
+
+Inline with offload (ndpi enabled)
+```
+sudo /opt/napatech3/bin/ntpl -f flow-offload.ntpl
+sudo cento-bridge -i nt:stream[0-15],nt:stream[0-15] --dpi-level 2 --bridge-conf rules.conf -v 4 --tx-offload --flow-offload -g 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 --exporting-cores 31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31 --max-hash-size 40000000
+```
+
+Passive capture (no nDPI)
+```
+sudo /opt/napatech3/bin/ntpl -f streams.ntpl
+sudo cento -i nt:stream[0-15] -v 4 -g 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 --exporting-cores 31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31 --max-hash-size 40000000
+```
+
+Passive capture with offload (no nDPI)
+```
+sudo /opt/napatech3/bin/ntpl -f flow-offload-passive.ntpl
+sudo cento -i nt:stream[0-15] -v 4 --flow-offload -g 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 --exporting-cores 31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31 --max-hash-size 40000000
 ```
