@@ -7,10 +7,10 @@ All the tests have been performed with software versions of May 20th, 2024.
 
 ### Testbed
 nProbe Cento has been deployed on a Supermicro Super Server/X13SEI-F based on an Intel Xeon Gold 6526Y with a Napatech NT200A02 adapter.
-The traffic generator was running on a Supermicro Super Server/X11SCA-Fbased on a 6 cores Intel Xeon(R) E-2136 with a Napatech NT100E3 adapter connected with a DAC (Direct Attached Cable) to the server running nProbe Cento.
+The traffic generator was running on a Supermicro Super Server/X11SCA-F based on a 6 cores Intel Xeon(R) E-2136 with a Napatech NT100E3 adapter connected with a DAC (Direct Attached Cable) to the server running nProbe Cento.
 
 ### Traffic Generation
-Traffic was generated with 12 pfsend instances, to take advantage to all physical and logical cores on the traffic generator, with different command line options to control the traffic at various rates. The maximum this machine was able to generate was 89 Mpps @ 60 Gbps (60-byte packets), or 10 Mpps @ 80 Gbps  (970-byte packets).
+Traffic was generated with 12 pfsend instances, to take advantage of all physical and logical cores on the traffic generator, with different command line options to control the traffic at various rates. The maximum this machine was able to generate was 89 Mpps @ 60 Gbps (60-byte packets), or 10 Mpps @ 80 Gbps  (970-byte packets).
 
 The below command lines have been used. Please note they depend on the CPU, memory and NIC characteristics of the machine running the tool.
 
